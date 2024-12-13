@@ -20,7 +20,6 @@ public class Pulse : MonoBehaviour
     {
         if(_scalingDown)
         {
-            Debug.Log(_currentScale);
             _currentScale = Vector3.MoveTowards(_currentScale, _targetScaleDown, _scaleSpeed * Time.deltaTime);
             transform.localScale = _currentScale;
             if(_currentScale == _targetScaleDown) _scalingDown = false;

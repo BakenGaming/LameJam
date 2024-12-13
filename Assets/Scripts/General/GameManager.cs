@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Events
+    public static event Action onGameReady;
+    #endregion
     #region Variables
     private static GameManager _i;
     public static GameManager i { get { return _i; } }
@@ -26,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     private void Initialize() 
     {
-        
         SpawnPlayerObject();
     }
 
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
         sunGO = Instantiate(GameAssets.i.pfSunObject, sunSpawnPoint);
         sunGO.transform.parent = null;
         sunGO.GetComponent<ISunController>().Initialize();
+        onGameReady?.Invoke();
     }
 
     public void SetupObjectPools()
