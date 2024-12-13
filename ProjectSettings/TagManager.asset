@@ -8,14 +8,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Non-Interactable
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Ground
+  - Collectable
+  - Sun
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 592547261
+    locked: 0
+  - name: Collectable
+    uniqueID: 572153647
+    locked: 0
+  - name: Hazard
+    uniqueID: 2161655221
+    locked: 0
+  - name: Player
+    uniqueID: 572207139
     locked: 0

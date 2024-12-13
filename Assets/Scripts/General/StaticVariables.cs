@@ -16,10 +16,10 @@ public class StaticVariables : MonoBehaviour
     }
 
     public LayerMask GetGroundLayer() { return whatIsGround; }
-    public LayerMask GetPlayer() { return whatIsPlayer; }
-    public LayerMask GetEnemy() { return whatIsEnemy; }
-    public LayerMask GetCollectable() { return collectable; }
-    public LayerMask GetUI(){ return whatIsUI; }
+    public LayerMask GetPlayerLayer() { return whatIsPlayer; }
+    public LayerMask GetEnemyLayer() { return whatIsEnemy; }
+    public LayerMask GetCollectableLayer() { return collectable; }
+    public LayerMask GetUILayer(){ return whatIsUI; }
     public AudioMixerGroup GetMasterMixer(){ return masterMixer; }
     public AudioMixerGroup GetSFXMixer(){ return sfxMixer; }
     public AudioMixerGroup GetMusicMixer(){ return musicMixer; }

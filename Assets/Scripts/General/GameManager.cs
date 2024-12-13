@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,10 @@ public class GameManager : MonoBehaviour
     private static GameManager _i;
     public static GameManager i { get { return _i; } }
     [SerializeField] private Transform sysMessagePoint;
-    [SerializeField] private Transform spawnPoint;
-    private GameObject playerGO;
+    [SerializeField] private Transform playerSpawnPoint, sunSpawnPoint;
+    [SerializeField] private LevelStatsSO levelStatsSO;
+    private GameObject playerGO, sunGO;
     private bool isPaused;
-
 
     #endregion
     
@@ -25,14 +26,24 @@ public class GameManager : MonoBehaviour
 
     private void Initialize() 
     {
+        
         SpawnPlayerObject();
     }
 
     private void SpawnPlayerObject()
     {
-        playerGO = Instantiate(GameAssets.i.pfPlayerObject, spawnPoint);
+        playerGO = Instantiate(GameAssets.i.pfPlayerObject, playerSpawnPoint);
         playerGO.transform.parent = null;
         playerGO.GetComponent<IHandler>().Initialize();
+        playerGO.GetComponent<ISizeHandler>().Initialize();
+        SpawnSun();
+    }
+
+    private void SpawnSun()
+    {
+        sunGO = Instantiate(GameAssets.i.pfSunObject, sunSpawnPoint);
+        sunGO.transform.parent = null;
+        sunGO.GetComponent<ISunController>().Initialize();
     }
 
     public void SetupObjectPools()
@@ -54,6 +65,7 @@ public class GameManager : MonoBehaviour
     
     public Transform GetSysMessagePoint(){ return sysMessagePoint;}
     public GameObject GetPlayerGO() { return playerGO; }
+    public LevelStatsSO GetLevelStats(){return levelStatsSO;}
     public bool GetIsPaused() { return isPaused; }
 
 }

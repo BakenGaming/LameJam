@@ -62,19 +62,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   collectable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   whatIsUI:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 544
   masterMixer: {fileID: 0}
   sfxMixer: {fileID: 0}
   musicMixer: {fileID: 0}

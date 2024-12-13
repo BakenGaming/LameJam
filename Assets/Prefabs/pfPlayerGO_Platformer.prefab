@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -591293655, guid: 7a3c46d73431cff49bf4dc35c254796d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,8 @@ GameObject:
   - component: {fileID: 2082098096823672778}
   - component: {fileID: 5079445241257824703}
   - component: {fileID: 5513492577853786863}
-  - component: {fileID: -285839579368299294}
+  - component: {fileID: 524289846829780999}
+  - component: {fileID: 8367541938129591253}
   m_Layer: 6
   m_Name: pfPlayerGO_Platformer
   m_TagString: Untagged
@@ -149,7 +150,7 @@ Rigidbody2D:
   m_Mass: 4
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 6
   m_Material: {fileID: 6200000, guid: e4e9440c3cf092e48bd709d14423c304, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -193,7 +194,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0015823841}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -204,7 +205,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 3.0407538}
   m_EdgeRadius: 0
 --- !u!114 &5513492577853786863
 MonoBehaviour:
@@ -220,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeedMin: 1.5
   fallSpeedMax: 2.5
---- !u!114 &-285839579368299294
+--- !u!114 &524289846829780999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,6 +230,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 9187117150498859108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b82e3a7d791094d8d624029baf1230, type: 3}
+  m_Script: {fileID: 11500000, guid: f4e7f902cfc7d6546a8f6e6fb42f620f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8367541938129591253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9187117150498859108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e261e09c029969149a019332bf1b3b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

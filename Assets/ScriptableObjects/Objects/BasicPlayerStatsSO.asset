@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   moveSpeed: 10
-  jumpPower: 13
+  jumpPower: 22

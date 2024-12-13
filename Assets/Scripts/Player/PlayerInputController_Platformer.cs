@@ -80,8 +80,10 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
 
     private void HandleJumpInput(InputAction.CallbackContext context)
     {
+        Debug.Log("Jump Press");
         if(CanJump())
         {
+            Debug.Log("Jump Activate");
             lastYVeloValue = playerRB.transform.position.y;
             playerRB.velocity = new Vector2(playerRB.velocity.x, _playerStats.GetJumpPower());
             jumpBufferCount = jumpBufferLength;
@@ -155,14 +157,15 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
 
     private void FlipPlayer()
     {
+        if(moveInput.x == 0) return;
         if (moveInput.x < 0)
         {
-            playerRB.transform.localScale = new Vector3(-1f, 1f, 1f);
+            playerSprite.flipX = true;
             facingRight = false;
         }
         else if (moveInput.x > 0)
         {
-            playerRB.transform.localScale = Vector3.one;
+            playerSprite.flipX = false;
             facingRight = true;
         }
     }
