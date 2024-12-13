@@ -8,9 +8,8 @@ public class SunController : MonoBehaviour, ISunController
     private const float _constantMeltSpeed = 2f;
     private Vector2 _constantReductionSize = new Vector2(.01f, .01f);
     private Vector2 reductionAmount;
-    private float meltTimer, constantMeltTimer;
-    private bool isInitialized;
-    private bool isInSun;
+    private float meltTimer, constantMeltTimer, exitTimer;
+    private bool isInitialized, isInSun, sunActive;
     private ISizeHandler _playerHandler;
     private Rigidbody2D sunRB;
     private float sunSpeed = 50f;
@@ -25,6 +24,7 @@ public class SunController : MonoBehaviour, ISunController
         constantMeltTimer = _constantMeltSpeed;
         sunRB = GetComponent<Rigidbody2D>();
         isInitialized = true;
+        sunActive = true;
     }
 
     #endregion
@@ -33,14 +33,21 @@ public class SunController : MonoBehaviour, ISunController
     private void Update() 
     {
         if(isInitialized) UpdateTimers();
+        if(GameManager.i.GetIsPaused() && sunActive) sunActive = false;
     }
 
     private void UpdateTimers()
     {
+#if UNITY_EDITOR
+    if (Input.GetKeyDown(KeyCode.K)) sunActive = false;
 
-        meltTimer -= Time.deltaTime;
+    if (Input.GetKeyDown(KeyCode.L)) sunActive = true;
+
+#endif
+        exitTimer -= Time.deltaTime;
+        if(exitTimer <= 0) meltTimer -= Time.deltaTime;
         constantMeltTimer -= Time.deltaTime;
-        if(constantMeltTimer < 0f) 
+        if(constantMeltTimer < 0f && sunActive) 
         {
             _playerHandler.ReduceSize(_constantReductionSize);
             constantMeltTimer = _constantMeltSpeed;
@@ -49,18 +56,22 @@ public class SunController : MonoBehaviour, ISunController
 
     private void FixedUpdate() 
     {
+        if(!sunActive) 
+        {
+            sunRB.velocity = Vector2.zero;
+            return;
+        }
         sunRB.velocity = new Vector2 (sunSpeed * Time.deltaTime, sunRB.velocity.y);    
     }
     #endregion
     #region Triggers
     private void OnTriggerEnter2D(Collider2D _trigger) 
     {
-        
+        if(!sunActive) return;
         ISizeHandler _handler = _trigger.GetComponent<ISizeHandler>();
         if( _handler != null )
         {
-            
-            if(meltTimer <= 0) 
+            if(meltTimer <= 0 || exitTimer <= 0) 
             {
                 Debug.Log("Entered Sun");
                 TextPopUp.Create(_trigger.transform.Find("Sprite").Find("TextSpawn").position, "Ouch");
@@ -73,6 +84,7 @@ public class SunController : MonoBehaviour, ISunController
 
     private void OnTriggerStay2D(Collider2D _trigger) 
     {
+        if(!sunActive) return;
         ISizeHandler _handler = _trigger.gameObject.GetComponent<ISizeHandler>();
         if(_handler != null)
         {
@@ -88,13 +100,14 @@ public class SunController : MonoBehaviour, ISunController
 
     private void OnTriggerExit2D(Collider2D _trigger) 
     {
-        
+        if(!sunActive) return;
         ISizeHandler _handler = _trigger.GetComponent<ISizeHandler>();
         if( _handler != null ) 
         {
             Debug.Log("Exit Sun");
             isInSun = false;
-            meltTimer = .03f;
+            meltTimer = GameManager.i.GetLevelStats().meltIntervals;
+            exitTimer = .3f;
         }
     }
     #endregion

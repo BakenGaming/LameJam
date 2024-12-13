@@ -32,13 +32,15 @@ public class SizeHandler : MonoBehaviour, ISizeHandler
         playerScale -= _sizeAdjustmentValueMelt;
         if(playerScale.x <= 0f)
         {
-            float _percent = 0f;
-            onSizeChanged?.Invoke(_percent);  
+            Debug.Log("Final Scale");
+            onSizeChanged?.Invoke(0); 
+            GameManager.i.PauseGame(); 
             onPlayerDied?.Invoke();
             Destroy(gameObject);
         }
         else
         {
+            Debug.Log("Scale Down");
             transform.localScale = playerScale;  
             float _percent = (playerScale.x / 1f) * 100f;
             onSizeChanged?.Invoke(_percent);  

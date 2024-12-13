@@ -25,7 +25,8 @@ public class UIController : MonoBehaviour
 
     private void UpdatePercentText(float _percent)
     {
-        _percentText.text = _percent.ToString("##") + "%";
+        if(_percent == 0f) _percentText.text = "0%";
+        else _percentText.text = _percent.ToString("##") + "%";
     }
 
 

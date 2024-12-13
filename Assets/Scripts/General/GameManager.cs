@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform sysMessagePoint;
     [SerializeField] private Transform playerSpawnPoint, sunSpawnPoint;
     [SerializeField] private LevelStatsSO levelStatsSO;
+    [SerializeField] private CameraController _cameraController;
     private GameObject playerGO, sunGO;
     private bool isPaused;
 
