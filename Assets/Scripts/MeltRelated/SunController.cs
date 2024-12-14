@@ -34,6 +34,7 @@ public class SunController : MonoBehaviour, ISunController
     {
         if(isInitialized) UpdateTimers();
         if(GameManager.i.GetIsPaused() && sunActive) sunActive = false;
+        if(!GameManager.i.GetIsPaused() && !sunActive) sunActive = true;
     }
 
     private void UpdateTimers()

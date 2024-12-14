@@ -21,16 +21,8 @@ public class PlayerHandler : MonoBehaviour, IHandler
     #endregion
 
     #region Get Functions
-    public HealthSystem GetHealthSystem()
-    {
-        return _healthSystem;
-    }
-
-    public StatSystem GetStatSystem()
-    {
-        return _statSystem;
-    }
-
+    public HealthSystem GetHealthSystem(){ return _healthSystem; }
+    public StatSystem GetStatSystem(){return _statSystem;}
     #endregion
 
     #region Handle Player Functions
@@ -43,6 +35,12 @@ public class PlayerHandler : MonoBehaviour, IHandler
     public void UpdateHealth()
     {
         throw new System.NotImplementedException();
+        //shrink player on health reduction
+    }
+
+    public void ShrinkPlayer()
+    {
+
     }
     #endregion
 

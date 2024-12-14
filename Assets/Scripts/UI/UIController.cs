@@ -7,16 +7,21 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _percentText;
+    [SerializeField] private GameObject pauseMenu;
 
     private void OnEnable() 
     {
         GameManager.onGameReady += Initialize;
-        SizeHandler.onSizeChanged += UpdatePercentText;    
+        SizeHandler.onSizeChanged += UpdatePercentText;   
+        PlayerInputController_Platformer.OnPauseGame += OpenPauseMenu;
+        PlayerInputController_Platformer.OnUnpauseGame += ClosePauseMenu; 
     }
     private void OnDisable() 
     {
         GameManager.onGameReady -= Initialize;    
         SizeHandler.onSizeChanged -= UpdatePercentText;
+        PlayerInputController_Platformer.OnPauseGame -= OpenPauseMenu;
+        PlayerInputController_Platformer.OnUnpauseGame -= ClosePauseMenu;
     }
     private void Initialize()
     {
@@ -29,5 +34,16 @@ public class UIController : MonoBehaviour
         else _percentText.text = _percent.ToString("##") + "%";
     }
 
+    private void OpenPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+        GameManager.i.PauseGame();
+    }
+
+    public void ClosePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+        GameManager.i.UnPauseGame();
+    }
 
 }
