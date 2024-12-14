@@ -24,7 +24,7 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
     private InputAction _move, _jump, _attack, _pause;
     private Vector2 moveInput;
     private float jumpBufferCount, jumpBufferLength = .2f, hangTimeCounter, hangTime = .2f, lastYVeloValue;
-    private bool facingRight, isJumping, isFalling;
+    private bool facingRight, isJumping, isFalling, onIce;
     private bool isPlayerActive=false;
     #endregion
     
@@ -98,7 +98,18 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
     {
         if(!isPlayerActive) return;
 
-        if(Grounded()) { hangTimeCounter = hangTime; isFalling = false; isJumping = false;} 
+        if(Grounded()) 
+        { 
+            CollapseCheck();
+
+            if(IceCheck()) { onIce = true; }
+            else { onIce = false; }
+
+            
+            hangTimeCounter = hangTime; 
+            isFalling = false; 
+            isJumping = false;
+        }
         UpdateTimers();
 
         moveInput = _move.ReadValue<Vector2>();  
@@ -115,7 +126,12 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
         }
         FlipPlayer();
         Vector2 moveSpeed = moveInput.normalized;
-        playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), playerRB.velocity.y);  
+        if(!onIce) playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), playerRB.velocity.y); 
+        else  
+        {
+            if (facingRight) playerRB.velocity = new Vector2(_playerStats.GetMoveSpeed(), playerRB.velocity.y);
+            else playerRB.velocity = new Vector2(-_playerStats.GetMoveSpeed(), playerRB.velocity.y);
+        }
 
         // if(isFalling) playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), Mathf.Clamp(playerRB.velocity.y, fallSpeedMin,fallSpeedMax));
         // else playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), playerRB.velocity.y);  
@@ -153,6 +169,28 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
             Vector2.right * (playerCollider.bounds.extents.x * 2f), rayColor);
 
         return rayCastHit.collider != null;
+    }
+
+    private bool IceCheck()
+    {
+        float extraDistance = .3f;
+        RaycastHit2D rayCastHit = Physics2D.BoxCast(playerCollider.bounds.center,
+            playerCollider.bounds.size, 0f, Vector2.down, extraDistance, StaticVariables.i.GetIceLayer());
+
+        return rayCastHit.collider != null;
+    }
+
+    private void CollapseCheck()
+    {
+        float extraDistance = .3f;
+       
+        RaycastHit2D[] rayCastHit = Physics2D.BoxCastAll(playerCollider.bounds.center,
+            playerCollider.bounds.size, 0f, Vector2.down, extraDistance, StaticVariables.i.GetCollapseLayer());
+        
+        foreach (RaycastHit2D _hit in rayCastHit)
+        {
+            if (_hit.collider != null) _hit.transform.gameObject.GetComponent<ICollapseable>().Collapse();
+        }
     }
 
     private void FlipPlayer()
