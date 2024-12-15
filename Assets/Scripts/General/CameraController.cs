@@ -35,7 +35,6 @@ public class CameraController : MonoBehaviour
 
     private void CameraZoom(float _amount)
     {
-        Debug.Log(_defaultOrthoSize * (_amount/100f));
         _cameraZoom = Mathf.Clamp(_defaultOrthoSize * (_amount/100f), 2f, 10f);
         _mainCam.orthographicSize = _cameraZoom;
         

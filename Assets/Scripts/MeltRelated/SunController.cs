@@ -5,14 +5,14 @@ using UnityEngine;
 public class SunController : MonoBehaviour, ISunController
 {
     #region Variables
-    private const float _constantMeltSpeed = 2f;
+    private const float _constantMeltSpeed = .25f;
     private Vector2 _constantReductionSize = new Vector2(.01f, .01f);
     private Vector2 reductionAmount;
     private float meltTimer, constantMeltTimer, exitTimer;
     private bool isInitialized, isInSun, sunActive;
     private ISizeHandler _playerHandler;
     private Rigidbody2D sunRB;
-    private float sunSpeed = 50f;
+    private float sunSpeed;
     #endregion
 
     #region Initialize
@@ -21,10 +21,21 @@ public class SunController : MonoBehaviour, ISunController
         reductionAmount = GameManager.i.GetLevelStats().meltAmount;
         _playerHandler = GameManager.i.GetPlayerGO().GetComponent<ISizeHandler>();
         meltTimer = 0f;
+        sunSpeed = GameManager.i.GetLevelStats().sunSpeed;
         constantMeltTimer = _constantMeltSpeed;
         sunRB = GetComponent<Rigidbody2D>();
         isInitialized = true;
+        UIController.onInitialMovement += ActivateSun;
+        
+    }
+    private void ActivateSun()
+    {
         sunActive = true;
+    }
+
+    private void OnDisable() 
+    {
+        UIController.onInitialMovement -= ActivateSun;    
     }
 
     #endregion
@@ -62,7 +73,7 @@ public class SunController : MonoBehaviour, ISunController
             sunRB.velocity = Vector2.zero;
             return;
         }
-        sunRB.velocity = new Vector2 (sunSpeed * Time.deltaTime, sunRB.velocity.y);    
+        sunRB.velocity = new Vector2 (sunSpeed, sunRB.velocity.y);    
     }
     #endregion
     #region Triggers

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meltIntervals: 1
   meltAmount: {x: 0.1, y: 0.1}
-  sunSpeed: 5
+  sunSpeed: 9

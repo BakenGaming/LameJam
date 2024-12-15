@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484861c0ab266894e8b337aa1bcfb44e, type: 3}
-  m_Name: BasicPlayerStatsSO
+  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
+  m_Name: IceTiles
   m_EditorClassIdentifier: 
-  health: 100
-  moveSpeed: 10
-  jumpPower: 22
+  m_DefaultSprite: {fileID: 0}
+  m_DefaultGameObject: {fileID: 2359486319516057652, guid: a16be0b324732ae499354c5a2d4b1c42, type: 3}
+  m_DefaultColliderType: 1
+  m_TilingRules: []

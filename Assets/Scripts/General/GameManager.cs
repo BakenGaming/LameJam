@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Initialize() 
     {
+        PauseGame();
         SpawnPlayerObject();
     }
 
@@ -61,6 +62,11 @@ public class GameManager : MonoBehaviour
         //instance.gameobject.SetActive(true);
         //instance.Initialize();
         //==============================
+    }
+
+    public void RestartGame()
+    {
+        SpawnPlayerObject();
     }
     #endregion
 

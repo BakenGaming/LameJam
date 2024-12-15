@@ -12,11 +12,10 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
     public static Action OnUnpauseGame;
     #endregion
     #region Variables
+    
     private Rigidbody2D playerRB;
     private SpriteRenderer playerSprite;
     private BoxCollider2D playerCollider;
-    [SerializeField] private float fallSpeedMin=1.5f, fallSpeedMax=2.5f;
-    //[SerializeField] private Animator playerAnim;
 
     //Private Variables
     private StatSystem _playerStats;
@@ -24,7 +23,7 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
     private InputAction _move, _jump, _attack, _pause;
     private Vector2 moveInput;
     private float jumpBufferCount, jumpBufferLength = .2f, hangTimeCounter, hangTime = .2f, lastYVeloValue;
-    private bool facingRight, isJumping, isFalling, onIce;
+    private bool facingRight, onIce;
     private bool isPlayerActive=false;
     #endregion
     
@@ -88,7 +87,6 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
             playerRB.velocity = new Vector2(playerRB.velocity.x, _playerStats.GetJumpPower());
             jumpBufferCount = jumpBufferLength;
             hangTimeCounter = hangTime;
-            isJumping = true;
         }
     }
     #endregion
@@ -104,15 +102,12 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
 
             if(IceCheck()) { onIce = true; }
             else { onIce = false; }
-
-            
+           
             hangTimeCounter = hangTime; 
-            isFalling = false; 
-            isJumping = false;
         }
         UpdateTimers();
-
         moveInput = _move.ReadValue<Vector2>();  
+
     }
 
     private void FixedUpdate() 
@@ -124,6 +119,7 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
             playerRB.velocity = new Vector2(0, playerRB.velocity.y);
             return;
         }
+        
         FlipPlayer();
         Vector2 moveSpeed = moveInput.normalized;
         if(!onIce) playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), playerRB.velocity.y); 
@@ -132,14 +128,6 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
             if (facingRight) playerRB.velocity = new Vector2(_playerStats.GetMoveSpeed(), playerRB.velocity.y);
             else playerRB.velocity = new Vector2(-_playerStats.GetMoveSpeed(), playerRB.velocity.y);
         }
-
-        // if(isFalling) playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), Mathf.Clamp(playerRB.velocity.y, fallSpeedMin,fallSpeedMax));
-        // else playerRB.velocity = new Vector2(moveSpeed.x * _playerStats.GetMoveSpeed(), playerRB.velocity.y);  
-
-        // if(playerRB.transform.position.y < lastYVeloValue) isFalling = true;
-        // else isFalling = false;
-        
-        // lastYVeloValue = playerRB.transform.position.y;
     }
 
     private void UpdateTimers()
@@ -211,7 +199,6 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
     private bool CanJump()
     {
         if(GameManager.i.GetIsPaused()) return false;
-        
         
         if(jumpBufferCount <= 0f && hangTimeCounter >= 0f) return true;
         else return false;        

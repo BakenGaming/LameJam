@@ -16,8 +16,8 @@ public class PlayerHandler : MonoBehaviour, IHandler
     public void Initialize()
     {
         SetupPlayer();
+        
     }
-
     #endregion
 
     #region Get Functions
@@ -29,7 +29,7 @@ public class PlayerHandler : MonoBehaviour, IHandler
 
     public void HandleDeath()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void UpdateHealth()
