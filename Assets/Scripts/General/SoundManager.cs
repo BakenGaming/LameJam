@@ -9,7 +9,7 @@ public static class SoundManager
     public static event Action<GameObject> OnMusicPlayed;
     public enum Sound
     { 
-        uiClick, playerShoot, playerDie, enemyTakeDamage, collect
+        uiClick, playerShoot, playerDie, enemyTakeDamage, collect, jump, win
     }
 
     public enum Music

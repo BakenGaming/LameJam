@@ -83,6 +83,7 @@ public class PlayerInputController_Platformer : MonoBehaviour, IInputHandler
         if(CanJump())
         {
             Debug.Log("Jump Activate");
+            SoundManager.PlaySound(SoundManager.Sound.jump);
             lastYVeloValue = playerRB.transform.position.y;
             playerRB.velocity = new Vector2(playerRB.velocity.x, _playerStats.GetJumpPower());
             jumpBufferCount = jumpBufferLength;

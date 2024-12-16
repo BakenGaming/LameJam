@@ -34,6 +34,7 @@ public class SizeHandler : MonoBehaviour, ISizeHandler
         {
             onSizeChanged?.Invoke(0); 
             GameManager.i.PauseGame(); 
+            SoundManager.PlaySound(SoundManager.Sound.playerDie);
             onPlayerDied?.Invoke();
             Destroy(gameObject);
         }

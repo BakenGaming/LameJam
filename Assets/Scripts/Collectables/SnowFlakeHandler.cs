@@ -10,6 +10,7 @@ public class SnowFlakeHandler : MonoBehaviour, ICollectable
     public void Collect()
     {
         onSnowFlakeCollected?.Invoke(_increaseAmount);
+        SoundManager.PlaySound(SoundManager.Sound.collect);
         Destroy(gameObject);
     }
 }

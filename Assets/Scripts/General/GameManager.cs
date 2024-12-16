@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private void Awake() 
     {
         _i = this;  
+        SoundManager.PlayMusic(SoundManager.Music.defaultMusic);
         SetupObjectPools();  
         Initialize();
     }
